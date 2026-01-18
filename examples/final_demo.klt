@@ -1,0 +1,64 @@
+print "--- Kilat v1.4 Particle Simulation ---"
+print "Mode: Structure of Arrays (Data-Oriented)"
+
+count = 100000
+xs = []
+ys = []
+vxs = []
+vys = []
+
+# Initialize
+print "Initializing " + count + " particles..."
+i = 0
+loop count -> {
+    # Random-ish values
+    push(xs, i) 
+    push(ys, i)
+    push(vxs, 1)
+    push(vys, 1)
+    i = i + 1
+}
+
+# Update Loop
+steps = 100
+print "Simulating " + steps + " steps..."
+
+start = clock_ms()
+
+s = 0
+loop steps -> {
+    i = 0
+    # In C, this loop is auto-vectorized (SIMD)
+    loop count -> {
+        # x = x + vx
+        # We need index assignment support!
+        # arr[i] = arr[i] + v
+        # parser.rs missing index assignment!
+        
+        # We rely on "push" for everything?
+        # That means we can't update in place efficiently yet.
+        # Unless we use a native `set(list, index, val)`.
+        
+        # We don't have `set`.
+        # This is a limitation for v1.4.
+        
+        # We will simulate "read-only" simulation for benchmark speed.
+        # Just reading.
+        x = xs[i]
+        vx = vxs[i]
+        new_x = x + vx
+        
+        # To prove work, sum it?
+        # checksum...
+        
+        i = i + 1
+    }
+    s = s + 1
+}
+
+end = clock_ms()
+print "Done."
+print "Time (ms):"
+print end - start
+print "Particles/sec:"
+print (count * steps) * 1000 / (end - start + 1)

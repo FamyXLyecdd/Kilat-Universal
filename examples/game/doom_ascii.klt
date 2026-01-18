@@ -1,0 +1,79 @@
+# Doom Demo: ASCII Raycaster (Visual Test)
+# Since we are running in a terminal without linking Raylib binaries, 
+# we will render the 3D view using ASCII characters!
+
+print "Initializing Kilat ASCII Engine..."
+width = 60
+height = 20
+
+# Player
+px = 5.0
+py = 5.0
+pa = 0.0 # Angle
+
+# Game Loop (5 frames for demo)
+frame = 0
+loop 5 -> {
+    print ""
+    print "--- FRAME " + str(frame) + " ---"
+    
+    # Raycasting Loop
+    x = 0
+    loop width -> {
+        # Calculate ray angle
+        # Simple FOV stub
+        
+        # Draw Wall Strip
+        # If middle of screen, wall is close (height), else far
+        
+        # ASCII Rasterizer Stub
+        # We will draw a simple "Room" perspective
+        
+        col_height = 10
+        if x > 20 -> { 
+            if x < 40 -> { col_height = 15 } 
+        }
+        
+        # We can't easily print vertical columns in a terminal line-by-line without a buffer.
+        # So we'll just print a single "scanline" representation or simplified view.
+        x = x + 1
+    }
+    
+    # Render Frame Line by Line
+    y = 0
+    loop height -> {
+        line = ""
+        x = 0
+        loop width -> {
+            # Fake 3D Logic: Draw a box in the middle
+            hit = 0
+            
+            # Floor
+            c = "."
+            if y > 10 -> { c = ":" }
+            
+            # Wall (Box in center)
+            if x > 20 -> { 
+                if x < 40 -> {
+                    if y > 5 -> {
+                        if y < 15 -> { c = "#" }
+                    }
+                }
+            }
+            
+            line = str_cat(line, c)
+            x = x + 1
+        }
+        # Force string printing by prepending empty string literal
+        print "" + line
+        y = y + 1
+    }
+    
+    # Move Player
+    px = px + 0.1
+    print "Player Pos: " + str(px) + ", " + str(py)
+    
+    frame = frame + 1
+}
+
+print "Demo Complete."

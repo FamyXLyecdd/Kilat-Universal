@@ -1,0 +1,16 @@
+print "Scanning..."
+start = clock_ms()
+# In real life this would recurse
+# For benchmark we simulate heavy I/O scan by loop + string ops
+i = 0
+loop 100000 -> {
+    # path construction
+    p = "/usr/bin/file_" + i
+    # file_scan(p) -> prints, so avoid 100k prints
+    # simulate hash
+    h = hash_djb2(p)
+    i = i + 1
+}
+end = clock_ms()
+diff = end - start
+print "Scan time (100k virtual files): " + diff + "ms"

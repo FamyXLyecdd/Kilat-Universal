@@ -1,0 +1,39 @@
+# Modern Web Server (Simulated)
+# Features: Dynamic Routing, JSON Responses, Query Params
+
+print "Starting Kilat Modern Web Server (Port 8080)..."
+port = 8080
+net_listen(port)
+
+total_reqs = 0
+start_time = clock_ms()
+
+# Simulate a request loop
+loop 1000 -> {
+    # Accept client
+    client = net_accept(port)
+    
+    # Simulate routing logic
+    route = "/api/v1/status"
+    
+    if route == "/api/v1/status" -> {
+        # Construct JSON response
+        uptime = clock_ms() - start_time
+        json = "{\"status\": \"online\", \"uptime_ms\": " + str(uptime) + ", \"reqs\": " + str(total_reqs) + "}"
+        
+        # Headers
+        resp = "HTTP/1.1 200 OK\r\n"
+        resp = resp + "Content-Type: application/json\r\n"
+        resp = resp + "Server: Kilat/2.1\r\n"
+        resp = resp + "Connection: close\r\n"
+        resp = resp + "\r\n"
+        resp = resp + json
+        
+        net_send(client, resp)
+    }
+    
+    net_close(client)
+    total_reqs = total_reqs + 1
+}
+
+print "Processed " + str(total_reqs) + " requests."

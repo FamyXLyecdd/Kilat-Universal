@@ -1,0 +1,25 @@
+print "Starting Benchmark (100M)..."
+start_time = clock_ms()
+
+total = 0
+chunk_size = 10000000
+chunks = 10
+
+chunk_i = 0
+loop chunks -> {
+    # Inner loop
+    i = 0
+    loop chunk_size -> {
+        total = total + 1
+        i = i + 1
+    }
+    
+    chunk_i = chunk_i + 1
+    print chunk_i * 10
+}
+
+end_time = clock_ms()
+print "Done."
+print total
+print "Time (ms):"
+print end_time - start_time

@@ -1,0 +1,45 @@
+# Simple AI: Linear Regression (y = wx + b)
+print "Starting Training..."
+
+# Training Data
+# x = [1, 2, 3, 4]
+# y = [2, 4, 6, 8] (w=2, b=0)
+
+n = 4
+x = vec_create(n)
+y = vec_create(n)
+w = vec_create(n) # Using vector for weight just to use SIMD ops
+out = vec_create(n)
+
+# Initialize
+vec_set(x, 0, 1.0)
+vec_set(x, 1, 2.0)
+vec_set(x, 2, 3.0)
+vec_set(x, 3, 4.0)
+
+vec_set(y, 0, 2.0)
+vec_set(y, 1, 4.0)
+vec_set(y, 2, 6.0)
+vec_set(y, 3, 8.0)
+
+# Init Weight (Guess 1.0)
+loop n -> { vec_set(w, 0, 1.0) } # Broadcast 1.0
+
+print "Epoch 1: Predicting..."
+# Pred = x * w
+vec_mul(x, w, out, n)
+
+# Print first prediction
+p0 = vec_get(out, 0)
+print "Input 1.0 -> Pred " + str(p0) + " (Target 2.0)"
+
+# Simulate 'Learning' (Update W manually to 2.0)
+print "Backprop (Simulated)..."
+loop n -> { vec_set(w, 0, 2.0) } 
+
+print "Epoch 2: Predicting..."
+vec_mul(x, w, out, n)
+p0 = vec_get(out, 0)
+print "Input 1.0 -> Pred " + str(p0) + " (Target 2.0)"
+
+print "Model Converged."

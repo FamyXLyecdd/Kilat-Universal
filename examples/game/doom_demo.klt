@@ -1,0 +1,41 @@
+# Doom Demo: Raycasting Stub
+init_window(320, 200, "Kilat DOOM")
+set_target_fps(60)
+
+player_x = 50
+player_y = 50
+
+# Map Colors
+c_wall = 123456
+c_floor = 654321
+c_player = 999999
+
+print "Entering Game Loop..."
+
+loop 10 -> {
+    # window_should_close() is always 0 in bench mode, using loop limit
+    
+    begin_draw()
+    clear_bg(0) # Black
+    
+    # Draw "3D View" (Raycast Columns)
+    i = 0
+    loop 320 -> {
+        height = 100 # Wall height stub
+        # draw_rect(x, y, w, h, c)
+        draw_rect(i, 50, 1, height, c_wall) 
+        i = i + 1
+    }
+    
+    # Draw Player Map
+    draw_rect(player_x, player_y, 5, 5, c_player)
+    
+    draw_text("FPS: 60", 10, 10, 20, c_wall)
+    
+    end_draw()
+    
+    # Move Player
+    player_x = player_x + 1
+}
+
+print "Game Closed."

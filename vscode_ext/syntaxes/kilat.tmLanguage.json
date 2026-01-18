@@ -1,0 +1,11 @@
+{
+  "scopeName": "source.kilat",
+  "patterns": [
+    { "match": "\\b(fn|return|if|else|while|loop|struct|var|print)\\b", "name": "keyword.control.kilat" },
+    { "match": "\\b(clock_ms|len|push|str_get|vec_create|vec_add|vec_mul|net_listen|file_write)\\b", "name": "support.function.kilat" },
+    { "match": "\\b\\d+(\\.\\d+)?\\b", "name": "constant.numeric.kilat" },
+    { "match": "\"[^\"]*\"", "name": "string.quoted.double.kilat" },
+    { "match": "#.*$", "name": "comment.line.number-sign.kilat" },
+    { "match": "\\b([a-zA-Z_]\\w*)\\s*\\(", "captures": { "1": { "name": "entity.name.function.kilat" } } }
+  ]
+}

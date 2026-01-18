@@ -1,0 +1,22 @@
+{
+  "name": "kilat",
+  "displayName": "Kilat Sovereign",
+  "description": "Language Support for Kilat Sovereign Engine",
+  "version": "2.1.0",
+  "publisher": "Sovereign-Co",
+  "engines": { "vscode": "^1.70.0" },
+  "categories": ["Programming Languages"],
+  "contributes": {
+    "languages": [{
+      "id": "kilat",
+      "aliases": ["Kilat", "kilat"],
+      "extensions": [".klt"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "kilat",
+      "scopeName": "source.kilat",
+      "path": "./syntaxes/kilat.tmLanguage.json"
+    }]
+  }
+}

@@ -1,0 +1,27 @@
+print "Initializing Tensors..."
+n = 10000
+A = vec_create(n)
+B = vec_create(n)
+C = vec_create(n)
+
+print "Filling..."
+i = 0
+loop n -> {
+    vec_set(A, i, 1.5)
+    vec_set(B, i, 2.5)
+    i = i + 1
+}
+
+print "Computing C = A + B (SIMD)..."
+start = clock_ms()
+loop 1000 -> {
+    vec_add(A, B, C, n)
+}
+end = clock_ms()
+
+diff = end - start
+print "Time (1000 iters): " + diff + "ms"
+
+val = vec_get(C, 0)
+print "Result C[0]:"
+print val

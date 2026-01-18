@@ -1,0 +1,26 @@
+# Iterative Fibonacci
+# Tests logic without recursion depth issues
+
+fn fib_iter(n) ->
+    if n < 2 -> return n
+    
+    a = 0
+    b = 1
+    i = 2
+    
+    # loop n - 1 times (2 to n)
+    loop n - 1 ->
+        temp = a + b
+        a = b
+        b = temp
+    
+    return b
+
+start = clock()
+res = fib_iter(25)
+end = clock()
+
+print "Fib Iter(25):"
+print res
+print "Time:"
+print end - start

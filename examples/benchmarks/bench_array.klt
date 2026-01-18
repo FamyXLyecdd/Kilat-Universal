@@ -1,0 +1,14 @@
+# Memory Benchmark (Allocations)
+# Note: Kilat 'push' native was added in VM
+data = []
+start = clock()
+i = 0
+loop 1000000 ->
+    push(data, i)
+    i = i + 1
+
+end = clock()
+print "Array Len:"
+print len(data)
+print "Array Time:"
+print end - start

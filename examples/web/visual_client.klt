@@ -1,0 +1,47 @@
+# Visual Web Demo: API Response Simulator
+# Simulates what a frontend receives from the Kilat Backend
+
+print "--- KILAT WEB SERVER (v2.1) ---"
+print "Listening on 0.0.0.0:8080..."
+print "[INFO] Client connected: 192.168.1.42"
+print "[INFO] Request: GET /api/v1/dashboard"
+
+# Simulate Database Fetch
+print "[DB] Query: SELECT * FROM stats LIMIT 1 (0ms)"
+
+# Construct JSON Response (Manually for demo)
+# "{"status": "ok", "users": 10500, "revenue": 9999.99}"
+
+# Building string parts safely
+json_start = "{"
+json_k1 = "\"status\": \"online\", "
+json_k2 = "\"active_users\": 14205, "
+json_k3 = "\"server_load\": \"0.2%\", "
+json_k4 = "\"region\": \"us-east-1\""
+json_end = "}"
+
+# Concatenate body
+body = str_cat(json_start, json_k1)
+body = str_cat(body, json_k2)
+body = str_cat(body, json_k3)
+body = str_cat(body, json_k4)
+body = str_cat(body, json_end)
+
+# Construct Headers
+h1 = "HTTP/1.1 200 OK\n"
+h2 = "Content-Type: application/json\n"
+h3 = "Server: Kilat/2.1 (Sovereign)\n"
+h4 = "Connection: keep-alive\n\n"
+
+headers = str_cat(h1, h2)
+headers = str_cat(headers, h3)
+headers = str_cat(headers, h4)
+
+# Full Response
+response = str_cat(headers, body)
+
+print "--- RESPONSE SENT (128 bytes) ---"
+# Force string print
+print "" + response
+print "-----------------------------------"
+print "[INFO] Request processed in 0.02ms"

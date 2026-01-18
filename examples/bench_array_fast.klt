@@ -1,0 +1,31 @@
+print "Array Benchmark (10M writes)..."
+# Create list with some capacity
+arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+start = clock_ms()
+
+i = 0
+loop 10000000 -> {
+    # Index access
+    # In v1.4 this should be fast (no void* deref)
+    # But wait, arr[0] = 1 requires parser support for assignment to index?
+    # Parser supports Assignment { name, value }.
+    # Does it support Index Assignment?
+    # parser.rs: assignment() parses Identifier then Assign.
+    # It does NOT parse Primary[Index] = Value.
+    
+    # MISSING FEATURE: Index Assignment.
+    # We can only read arrays?
+    # This is a parser limitation.
+    
+    # Workaround: Use push?
+    # push(arr, i)
+    push(arr, i)
+}
+
+end = clock_ms()
+print "Done."
+print "Time (ms):"
+print end - start
+print "Length:"
+print len(arr)

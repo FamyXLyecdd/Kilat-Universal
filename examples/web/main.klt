@@ -1,0 +1,27 @@
+port = 8080
+net_listen(port)
+print "Server started."
+
+requests = 0
+start = clock_ms()
+
+# Simulate 100k requests
+loop 100000 -> {
+    client = net_accept(port)
+    net_send(client, "HTTP/1.1 200 OK")
+    net_close(client)
+    requests = requests + 1
+}
+
+end = clock_ms()
+duration = end - start
+# avoid div by zero
+if duration == 0 -> { duration = 1 }
+
+# rps = (requests * 1000) / duration
+# Kilat integers are long long, so safe
+num = requests * 1000
+rps = num / duration
+
+print "Duration: " + duration + "ms"
+print "RPS: " + rps

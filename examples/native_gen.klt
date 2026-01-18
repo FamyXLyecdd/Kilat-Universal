@@ -1,0 +1,68 @@
+# Pure Kilat x64 PE Generator (Optimized)
+print "Forging native executable..."
+bytes = []
+
+# 1. DOS Header
+push(bytes, 77); push(bytes, 90)
+fill(bytes, 58) # Padding
+push(bytes, 64); push(bytes, 0); push(bytes, 0); push(bytes, 0)
+print "DOS Header done"
+
+# 2. PE Header
+push(bytes, 80); push(bytes, 69); push(bytes, 0); push(bytes, 0)
+push(bytes, 100); push(bytes, 134) 
+push(bytes, 1); push(bytes, 0)
+fill(bytes, 12) # Time/Symbol/etc
+push(bytes, 240); push(bytes, 0)
+push(bytes, 34); push(bytes, 0)
+
+# 3. Optional Header
+push(bytes, 11); push(bytes, 2)
+fill(bytes, 2) # Linker
+push(bytes, 0); push(bytes, 2); push(bytes, 0); push(bytes, 0) # SizeOfCode
+fill(bytes, 8) # Data sizes
+push(bytes, 0); push(bytes, 16); push(bytes, 0); push(bytes, 0) # Entry
+push(bytes, 0); push(bytes, 16); push(bytes, 0); push(bytes, 0) # BaseCode
+push(bytes, 0); push(bytes, 0); push(bytes, 64); push(bytes, 0); push(bytes, 0); push(bytes, 0); push(bytes, 0); push(bytes, 0) # ImageBase
+push(bytes, 0); push(bytes, 16); push(bytes, 0); push(bytes, 0) # SectionAlign
+push(bytes, 0); push(bytes, 2); push(bytes, 0); push(bytes, 0) # FileAlign
+fill(bytes, 16) # OS Vers
+push(bytes, 0); push(bytes, 32); push(bytes, 0); push(bytes, 0) # SizeImage
+push(bytes, 0); push(bytes, 2); push(bytes, 0); push(bytes, 0) # SizeHeaders
+fill(bytes, 4) # Checksum
+push(bytes, 3); push(bytes, 0) # Subsystem
+fill(bytes, 2) # DllChar
+push(bytes, 0); push(bytes, 0); push(bytes, 16); push(bytes, 0); push(bytes, 0); push(bytes, 0); push(bytes, 0); push(bytes, 0) # StackRes
+push(bytes, 0); push(bytes, 16); push(bytes, 0); push(bytes, 0); push(bytes, 0); push(bytes, 0); push(bytes, 0); push(bytes, 0) # StackCom
+push(bytes, 0); push(bytes, 0); push(bytes, 16); push(bytes, 0); push(bytes, 0); push(bytes, 0); push(bytes, 0); push(bytes, 0) # HeapRes
+push(bytes, 0); push(bytes, 16); push(bytes, 0); push(bytes, 0); push(bytes, 0); push(bytes, 0); push(bytes, 0); push(bytes, 0) # HeapCom
+fill(bytes, 4) # Loader
+push(bytes, 16); push(bytes, 0); push(bytes, 0); push(bytes, 0) # RvaCount
+fill(bytes, 128) # DataDirs
+
+# 4. Section Header (.text)
+push(bytes, 46); push(bytes, 116); push(bytes, 101); push(bytes, 120); push(bytes, 116); push(bytes, 0); push(bytes, 0); push(bytes, 0)
+push(bytes, 0); push(bytes, 16); push(bytes, 0); push(bytes, 0) # VirtSize
+push(bytes, 0); push(bytes, 16); push(bytes, 0); push(bytes, 0) # VirtAddr
+push(bytes, 0); push(bytes, 2); push(bytes, 0); push(bytes, 0) # RawSize
+push(bytes, 0); push(bytes, 2); push(bytes, 0); push(bytes, 0) # RawPtr
+fill(bytes, 12) # Relocs
+push(bytes, 32); push(bytes, 0); push(bytes, 0); push(bytes, 96) # Characteristics
+
+# Padding to 512
+# 512 - 368 = 144
+fill(bytes, 144)
+
+# 5. Code (.text)
+# mov eax, 33 (return 33)
+push(bytes, 184); push(bytes, 33); push(bytes, 0); push(bytes, 0); push(bytes, 0)
+# ret
+push(bytes, 195)
+
+# Pad to file alignment
+# Optional but good
+fill(bytes, 506)
+
+print "Writing file..."
+file_write_bytes("pure_kilat.exe", bytes)
+print "SUCCESS: Generated pure_kilat.exe"

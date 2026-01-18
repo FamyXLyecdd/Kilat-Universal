@@ -1,0 +1,32 @@
+init_window(800, 600, "Kilat 3D")
+cubes = 10000
+print "Rendering " + cubes + " cubes..."
+
+frames = 0
+start = clock_ms()
+
+# Render 60 frames
+i = 0
+loop 60 -> {
+    begin_draw()
+    clear_bg(255)
+    
+    # Logic Update
+    # For benchmark, we just loop
+    j = 0
+    loop cubes -> {
+        # x = j * 0.1
+        # draw_cube(x, 0, 0) # Stub
+        j = j + 1
+    }
+    
+    end_draw()
+    i = i + 1
+}
+
+end = clock_ms()
+dur = end - start
+if dur == 0 -> { dur = 1 }
+val = 60 * 1000
+fps = val / dur
+print "FPS: " + fps

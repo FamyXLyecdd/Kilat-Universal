@@ -1,0 +1,29 @@
+# AI Visualizer
+# ASCII Plot of a sine wave approximation (Neural Net stub)
+
+print "Training Visualization:"
+print "Loss vs Epoch:"
+
+# Simple plot loop
+y_vals = [9, 7, 5, 3, 2, 1, 0, 0, 0, 0] # Simulated loss curve
+
+epoch = 0
+loop 10 -> {
+    val = y_vals[epoch]
+    
+    # Draw Bar
+    bar = ""
+    j = 0
+    loop val -> {
+        bar = str_cat(bar, "#")
+        j = j + 1
+    }
+    
+    # Explicit str_cat for safety
+    p1 = str_cat("Ep ", str(epoch))
+    p2 = " | "
+    msg = str_cat(str_cat(p1, p2), bar)
+    print "" + msg
+    epoch = epoch + 1
+}
+print "Model Converged."

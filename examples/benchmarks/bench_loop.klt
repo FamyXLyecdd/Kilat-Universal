@@ -1,0 +1,6 @@
+# Loop Benchmark (CPU)
+start = clock()
+loop 50000000 -> nil
+end = clock()
+print "Loop Time:"
+print end - start

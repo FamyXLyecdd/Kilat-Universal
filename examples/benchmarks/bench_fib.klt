@@ -1,0 +1,12 @@
+# Recursion Benchmark (Stack/Calls)
+fn fib(n) ->
+  if n < 2 -> return n
+  return fib(n - 1) + fib(n - 2)
+
+start = clock()
+res = fib(25)
+end = clock()
+print "Fib(25) Result:"
+print res
+print "Fib Time:"
+print end - start

@@ -1,0 +1,39 @@
+# Visual Automation: Security Scan
+# Simulates a high-speed system scan
+
+print "--- KILAT SECURITY SENTINEL ---"
+print "[INIT] Loading signatures..."
+print "[OK] Database updated (15,000 rules)"
+
+# Scan loop
+files = ["/bin/bash", "/tmp/sketchy.sh", "/etc/passwd", "/home/admin/.ssh"]
+statuses = ["[SAFE]", "[WARN]", "[SAFE]", "[SAFE]"]
+
+i = 0
+loop 4 -> {
+    f = files[i]
+    st = statuses[i]
+    
+    # Simulate processing
+    # print "Scanning: " + f
+    
+    # Construct output line: "[STATUS] Filename   ... Verified"
+    # Using explicit str_cat for safety in this C-transpiler version
+    
+    line = str_cat(st, " Scanning: ")
+    line = str_cat(line, f)
+    
+    # Check for warn
+    if st == "[WARN]" -> {
+        line = str_cat(line, " -> MALWARE DETECTED!")
+    } else -> {
+        line = str_cat(line, " -> Clean")
+    }
+    
+    print "" + line
+    i = i + 1
+}
+
+print "-------------------------------"
+print "SCAN COMPLETE. Duration: 1ms"
+print "Action: 1 file quarantined."

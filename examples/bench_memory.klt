@@ -1,0 +1,12 @@
+print "Starting Memory Benchmark..."
+start = clock_ms()
+
+# Allocate 1 million arrays
+loop 1000000 -> {
+    a = [1, 2, 3, 4, 5]
+}
+
+end = clock_ms()
+print "Done."
+print "Time (ms):"
+print end - start

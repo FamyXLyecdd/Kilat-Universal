@@ -1,0 +1,8 @@
+print "String Test..."
+print "Hello " + "World"
+x = 100
+print "Count: " + x
+s = "Value"
+# print s + ": " + x  <-- This still fails (Identifier + Literal) without type tracking
+# But "Literal" + ... works.
+print "Done."
